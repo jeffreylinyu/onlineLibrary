@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.linyu.dao.BookMapper">
+
+    <!--增加一个Book-->
+    <insert id="addBook" parameterType="Books">
+        insert into bookstore.books(bookID,bookName,writer,sort,date)
+        values (#{bookID},#{bookName}, #{writer},#{sort}, #{date})
+    </insert>
+
+    <!--根据id删除一个Book-->
+    <delete id="deleteBookById" parameterType="int">
+        delete from bookstore.books where bookID=#{bookID}
+    </delete>
+
+    <!--更新Book-->
+    <update id="updateBook" parameterType="Books">
+        update bookstore.books
+        set bookName = #{bookName},writer = #{writer},sort=#{sort},date = #{date}
+        where bookID = #{bookID}
+    </update>
+
+    <!--根据id查询,返回一个Book-->
+    <select id="queryBookById" resultType="Books">
+        select * from bookstore.books
+        where bookID = #{bookID}
+    </select>
+
+    <!--查询全部Book-->
+    <select id="queryAllBook" resultType="Books" parameterType="java.util.Map">
+        SELECT * from bookstore.books limit #{limit1},#{limit2}
+    </select>
+
+    <!-- 查詢用戶帳號密碼 -->
+    <select id="getUser" resultType="User" parameterType="String">
+        SELECT * from bookstore.bookUser where email=#{email}
+    </select>
+
+    <!--根据name删除一个Book-->
+    <select id="queryByName" parameterType="String" resultType="Books">
+        select * from bookstore.books where bookName=#{bookName}
+    </select>
+
+    <!--模糊查詢書籍-->
+    <select id="queryByLike" parameterType="String" resultType="Books">
+        select * from bookstore.books where bookName like concat('%',#{bookNameOrSort},'%') or sort like concat('%',#{bookNameOrSort},'%')
+    </select>
+
+    <!--註冊用戶-->
+    <insert id="addUser" parameterType="User">
+        insert into bookstore.bookUser(email, userPassword, country) VALUES (#{email},#{userPassword},#{country})
+    </insert>
+
+    <!--刪除bookID-->
+    <update id="deleteBookID">
+        alter table bookstore.books drop bookID;
+    </update>
+    <!-- 增加BookID-->
+    <update id="addBookID">
+        ALTER TABLE bookstore.books add bookID MEDIUMINT( 8 ) NOT NULL AUTO_INCREMENT FIRST ,ADD PRIMARY KEY(bookID);
+    </update>
+
+    <!--根據分類sort查詢-->
+    <select id="queryBySort" parameterType="String" resultType="Books">
+        select * from bookstore.books where sort like concat('%',#{sort},'%')
+    </select>
+</mapper>
