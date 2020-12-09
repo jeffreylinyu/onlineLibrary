@@ -51,6 +51,8 @@
 + 熱門書籍：顯示多人點讚書籍(未實現)
 + 快速分類：下拉式選單，可快速查詢分類
 + 輸入收尋：輸入書名或分類，以模糊查詢收尋相關書籍
++ 查詢頁面：
+![head](https://github.com/jeffreylinyu/onlineLibrary/blob/master/readme_img/bookQuery.jpg)
 
 ### 新增書籍
 
